@@ -200,7 +200,7 @@ calculatePositionStyles { triggerEl, pickerEl } =
 
         posY =
             if (triggerY + triggerHeight + pickerHeight) > viewPortHeight then
-                triggerY + triggerHeight - pickerHeight
+                triggerY - pickerHeight
 
             else
                 triggerY + triggerHeight
