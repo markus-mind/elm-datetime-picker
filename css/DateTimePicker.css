@@ -372,3 +372,44 @@
     padding: 0 .25rem 0 .25rem;
     user-select: none;
 }
+
+.elm-datetimepicker--input-container {
+    height: 32px;
+    background-color: white;
+    display: inline-block;
+    border: 1px solid grey;
+    position: relative;
+    border-radius: var(--edtp-border-radius-default);
+    display: inline-flex;
+    align-items: center;
+}
+
+.elm-datetimepicker--input-container.elm-datetimepicker--error {
+    border-color: red;
+    color: red;
+}
+
+.elm-datetimepicker--input {
+    appearance: none;
+    -webkit-appearance: none;
+    height: 100%;
+    width: auto;
+    overflow: visible;
+    border: 0;
+    outline: 0;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    background-color: transparent;
+    flex-grow: 1;
+    color: currentColor;
+}
+
+.elm-datetimepicker--input::placeholder { 
+}
+
+.elm-datetimepicker--input-icon {
+    flex-shrink: 0;
+    padding-right: 0.5rem;
+    display: flex;
+    align-items: center;
+}
