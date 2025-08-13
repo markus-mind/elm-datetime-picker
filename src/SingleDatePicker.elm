@@ -374,28 +374,36 @@ determineDateTime zone selectionTuple hoveredDay =
 {-| The date picker view. Simply pass it the configured settings
 and the date picker instance you wish to view.
 -}
-view : Settings -> DatePicker msg -> Html msg
-view settings (DatePicker model) =
-    viewStyled settings (DatePicker model)
+view : Settings -> HtmlElement msg -> DatePicker msg -> Html msg
+view settings containerView (DatePicker model) =
+    viewStyled settings containerView (DatePicker model)
         |> toUnstyled
 
 
-viewStyled : Settings -> DatePicker msg -> Html.Styled.Html msg
-viewStyled settings (DatePicker model) =
+type alias HtmlElement msg =
+    List (Html.Attribute msg) -> List (Html msg) -> Html msg
+
+
+viewStyled : Settings -> HtmlElement msg -> DatePicker msg -> Html.Styled.Html msg
+viewStyled settings containerView (DatePicker model) =
     case model.status of
         Open timePickerVisible baseDay ->
             let
                 alignmentStyle =
                     Alignment.pickerStylesFromAlignment settings.theme model.alignment
             in
-            viewContainer settings.theme
-                [ id settings.id
-                , class (classPrefix settings.theme.classNamePrefix "single")
-                , css [ alignmentStyle ]
+            containerView []
+                [ viewContainer settings.theme
+                    [ id settings.id
+                    , class (classPrefix settings.theme.classNamePrefix "single")
+                    , css [ alignmentStyle ]
+                    ]
+                    [ viewPresets [] settings model
+                    , viewPicker [] settings timePickerVisible baseDay model
+                    ]
+                    |> Html.Styled.toUnstyled
                 ]
-                [ viewPresets [] settings model
-                , viewPicker [] settings timePickerVisible baseDay model
-                ]
+                |> Html.Styled.fromUnstyled
 
         Closed ->
             text ""

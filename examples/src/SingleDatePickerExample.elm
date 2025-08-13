@@ -145,6 +145,7 @@ view model =
                 [ button [ id "my-button", onClick (OpenDetachedPicker "my-button") ] [ text "Open the picker here" ]
                 , SingleDatePicker.view
                     (userDefinedDatePickerSettings model.zone model.currentTime)
+                    (Html.node "elm-portal")
                     model.detachedPicker
                 , div []
                     [ text "Picked time: "
